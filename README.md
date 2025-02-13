@@ -10,12 +10,12 @@ A demonstration project showcasing a health inquiry workflow system.
 
 ## Development
 1. Clone the repository
-2. Install dependencies
-3. Start development environment
+2. Install dependencies with `yarn install`
+3. Start development environment with `yarn dev`
 
 ## Testing
-- Frontend tests: `cd apps/frontend && npm test`
-- Backend tests: `cd apps/backend && npm test`
+- Frontend tests: `cd apps/frontend && yarn test`
+- Backend tests: `cd apps/backend && yarn test`
 
 ## Deployment
 Deployed via GitHub Actions to Render.com 
