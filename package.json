@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspaces foreach -pi run dev",
+    "dev": "yarn workspaces foreach --all run dev",
     "test": "yarn workspaces foreach --all run test",
-    "build": "yarn workspaces foreach -pi run build"
+    "build": "yarn workspaces foreach --all run build"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
