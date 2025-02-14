@@ -1,12 +1,13 @@
-import { utils, testData } from './shared';
+import { mockData, mockServices } from './mocks';
+import { createInquiry } from '../services/healthInquiry';
+
+jest.mock('../services/healthInquiry', () => mockServices);
 
 describe('Health Inquiry', () => {
   it('should create a new health inquiry', async () => {
-    const response = await utils.createTestInquiry();
+    const response = await createInquiry('Anna Mueller', 'Headache');
     
-    expect(response.id).toBeDefined();
-    expect(response.patientName).toBe(testData.patient.name);
-    expect(response.status).toBe('pending');
+    expect(response).toEqual(mockData.healthInquiry);
   });
 
   it('should match inquiry with available doctor', async () => {

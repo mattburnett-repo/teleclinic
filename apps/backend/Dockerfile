@@ -15,6 +15,10 @@ RUN yarn install
 # Copy source files
 COPY . .
 
+# Generate Prisma client
+RUN yarn workspace backend prisma generate
+# RUN yarn dlx prisma generate
+
 # Build TypeScript
 RUN yarn workspace backend build
 
