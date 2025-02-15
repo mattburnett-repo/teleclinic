@@ -7,7 +7,7 @@ describe('Doctor Matching', () => {
     id: 'doc-1',
     name: 'Dr. Smith',
     specialty: 'General Practice',
-    availability: ['2024-03-21T10:00:00Z']
+    availability: ['2024-03-21T12:00:00Z']
   }
 
   describe('DoctorCard', () => {
@@ -21,7 +21,7 @@ describe('Doctor Matching', () => {
     it('should show available time slots', () => {
       render(<DoctorCard doctor={mockDoctor} />)
       
-      expect(screen.getByText('10:00 AM')).toBeInTheDocument()
+      expect(screen.getByText('01:00 PM')).toBeInTheDocument()
     })
   })
 
