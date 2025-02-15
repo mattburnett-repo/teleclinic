@@ -1,4 +1,4 @@
-import { utils, testData } from './shared';
+import { utils, testData } from '../shared';
 
 describe('Appointments', () => {
   it('should schedule appointment after doctor match', async () => {

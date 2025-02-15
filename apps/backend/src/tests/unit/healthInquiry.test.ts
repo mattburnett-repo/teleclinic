@@ -1,7 +1,8 @@
-import { mockData, mockServices } from './mocks';
-import { createInquiry } from '../services/healthInquiry';
+import { mockData, mockServices } from '../mocks';
+import { createInquiry } from '../../services/healthInquiry';
+import { utils, testData } from '../shared';
 
-jest.mock('../services/healthInquiry', () => mockServices);
+jest.mock('../../services/healthInquiry', () => mockServices);
 
 describe('Health Inquiry', () => {
   it('should create a new health inquiry', async () => {

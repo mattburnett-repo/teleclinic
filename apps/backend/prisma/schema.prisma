@@ -1,18 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model HealthInquiry {
-  id          String      @id @default(uuid())
+  id          String       @id @default(uuid())
   patientName String
   symptoms    String
-  status      String      @default("pending")
-  createdAt   DateTime    @default(now())
+  urgency     String       @default("medium")
+  status      String       @default("pending")
+  createdAt   DateTime     @default(now())
   doctorMatch DoctorMatch?
 }
 
@@ -25,18 +26,18 @@ model Doctor {
 }
 
 model DoctorMatch {
-  id        String       @id @default(uuid())
-  doctor    Doctor       @relation(fields: [doctorId], references: [id])
+  id        String        @id @default(uuid())
   doctorId  String
+  inquiryId String        @unique
+  doctor    Doctor        @relation(fields: [doctorId], references: [id])
   inquiry   HealthInquiry @relation(fields: [inquiryId], references: [id])
-  inquiryId String       @unique
 }
 
 model Appointment {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   doctorId  String
   inquiryId String
   time      String
-  status    String   @default("scheduled")
-  confirmed Boolean  @default(false)
-} 
+  status    String  @default("scheduled")
+  confirmed Boolean @default(false)
+}

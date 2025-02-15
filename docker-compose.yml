@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: apps/backend/Dockerfile
     command: >
-      sh -c "cd /app/apps/backend && npx prisma migrate dev --name init && npx prisma db seed && yarn dev"
+      sh -c "cd /app/apps/backend && npx prisma migrate deploy && npx prisma db seed && yarn dev"
     volumes:
       - ./apps/backend/src:/app/apps/backend/src
     ports:

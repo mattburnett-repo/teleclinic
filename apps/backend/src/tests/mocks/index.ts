@@ -1,9 +1,17 @@
 // Single source of mock data
 export const mockData = {
+  patient: {
+    name: 'Anna Mueller',
+    inquiry: {
+      symptoms: 'Headache',
+      urgency: 'medium' as const
+    }
+  },
   healthInquiry: {
     id: '123',
     patientName: 'Anna Mueller',
     symptoms: 'Headache',
+    urgency: 'medium' as const,
     status: 'pending' as const
   },
   doctor: {

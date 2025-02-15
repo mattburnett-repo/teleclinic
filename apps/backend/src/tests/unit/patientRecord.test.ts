@@ -1,4 +1,4 @@
-import { utils, testData } from './shared';
+import { utils, testData } from '../shared';
 
 describe('Patient Health Records', () => {
   it('should get patient health record', async () => {
