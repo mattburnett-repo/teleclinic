@@ -5,11 +5,14 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json'],
   transform: {
     '^.+\\.ts$': ['ts-jest', {
-      useESM: true
+      useESM: true,
+      extensionsToTreatAsEsm: ['.ts']
     }]
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^(\\.{1,2}/.*)\\.js$': '$1'
   },
+  extensionsToTreatAsEsm: ['.ts'],
   verbose: true,    // Enable verbose output for more details on tests
 } 
