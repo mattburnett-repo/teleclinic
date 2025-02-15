@@ -17,6 +17,7 @@
     "**/*.test.ts",
     "**/tailwind.config.js",
     "**/prisma/seed.js",
-    "**/jest.config.js"
+    "**/jest.config.js",
+    "**/postcss.config.js"
   ]
 }
