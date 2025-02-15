@@ -1,4 +1,5 @@
 import React from 'react'
+import { SYMPTOMS } from '../constants/symptoms'
 
 export function HealthInquiryForm() {
   const [submitted, setSubmitted] = React.useState(false)
@@ -14,14 +15,32 @@ export function HealthInquiryForm() {
     
     if (newErrors.length === 0) {
       setSubmitted(true)
+      setErrors([])
     } else {
       setErrors(newErrors)
+      setSubmitted(false)
+    }
+  }
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setName(value)
+    if (value && errors.includes('Name is required')) {
+      setErrors(errors.filter(error => error !== 'Name is required'))
+    }
+  }
+
+  const handleSymptomsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value
+    setSymptoms(value)
+    if (value && errors.includes('Symptoms are required')) {
+      setErrors(errors.filter(error => error !== 'Symptoms are required'))
     }
   }
 
   return (
     <form 
-      className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg border border-gray-100"
+      className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-200 hover:shadow-xl"
       data-testid="health-inquiry-form"
     >
       <h2 className="text-2xl font-semibold mb-8 text-gray-800 text-center tracking-tight">Submit Your Inquiry</h2>
@@ -31,37 +50,48 @@ export function HealthInquiryForm() {
           type="text" 
           aria-label="name" 
           value={name} 
-          onChange={e => setName(e.target.value)} 
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-6 text-gray-700"
+          onChange={handleNameChange}
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-2 text-gray-700 transform transition-all duration-200 hover:border-blue-300"
         />
+        {errors.includes('Name is required') && (
+          <div className="mb-4 text-red-500 text-sm animate-shake">
+            Name is required
+          </div>
+        )}
       </label>
       <label>
         <span className="block text-gray-600 text-sm font-medium mb-2">Symptoms:</span>
-        <input 
-          type="text" 
+        <select
           aria-label="symptoms" 
           value={symptoms} 
-          onChange={e => setSymptoms(e.target.value)} 
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-6 text-gray-700"
-        />
+          onChange={handleSymptomsChange}
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-2 text-gray-700 transform transition-all duration-200 hover:border-blue-300 bg-white"
+        >
+          <option value="">Select your symptoms</option>
+          {Object.values(SYMPTOMS).map(symptom => (
+            <option key={symptom.value} value={symptom.value}>
+              {symptom.label}
+            </option>
+          ))}
+        </select>
+        {errors.includes('Symptoms are required') && (
+          <div className="mb-4 text-red-500 text-sm animate-shake">
+            Symptoms are required
+          </div>
+        )}
       </label>
       <button 
         type="button" 
         onClick={handleSubmit}
-        className="w-full bg-blue-500 text-white font-medium py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+        className="w-full bg-blue-500 text-white font-medium py-3 px-4 rounded-lg hover:bg-blue-600 transform transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 active:scale-[0.98]"
       >
         Submit
       </button>
       {submitted && (
-        <div className="mt-6 p-3 bg-green-50 text-green-700 rounded-lg text-center font-medium">
+        <div className="mt-6 p-3 bg-green-50 text-green-700 rounded-lg text-center font-medium animate-fadeIn">
           Inquiry submitted
         </div>
       )}
-      {errors.map(error => (
-        <div key={error} className="mt-2 text-red-500 text-sm text-center">
-          {error}
-        </div>
-      ))}
     </form>
   )
 } 

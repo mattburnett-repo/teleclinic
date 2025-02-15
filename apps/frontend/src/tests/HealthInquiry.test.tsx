@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { HealthInquiryForm } from '../components/HealthInquiryForm'
+import { SYMPTOMS } from '../constants/symptoms'
 
 describe('Health Inquiry Flow', () => {
   describe('HealthInquiryForm', () => {
@@ -10,14 +11,15 @@ describe('Health Inquiry Flow', () => {
         target: { value: 'John Doe' }
       })
       
+      // Select symptom from dropdown
       fireEvent.change(screen.getByLabelText(/symptoms/i), {
-        target: { value: 'Headache' }
+        target: { value: SYMPTOMS.HEADACHE.value }
       })
       
       fireEvent.click(screen.getByRole('button', { name: /submit/i }))
       
       await waitFor(() => {
-        expect(screen.getByText(/inquiry submitted/i)).toBeInTheDocument()
+        expect(screen.getByText('Inquiry submitted')).toBeInTheDocument()
       })
     })
 
