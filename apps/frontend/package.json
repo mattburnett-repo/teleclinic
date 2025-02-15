@@ -8,9 +8,16 @@
     "test": "jest --runInBand --colors"
   },
   "packageManager": "yarn@4.6.0",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/testing-library__jest-dom": "^5.14.9",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.17",
     "identity-obj-proxy": "^3.0.0",
