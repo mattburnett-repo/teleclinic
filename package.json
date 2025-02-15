@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "yarn workspaces foreach --all run dev",
     "test": "yarn workspaces foreach --all run test",
+    "test:frontend": "yarn workspace frontend test",
+    "test:backend": "yarn workspace backend test",
     "build": "yarn workspaces foreach --all run build"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { getPatientRecord, getPatientVisits } from '../services/patientRecord'
-import { ApiError } from '../middleware/errorHandler'
+import { getPatientRecord, getPatientVisits } from '../services/patientRecord.js'
+import { ApiError } from '../middleware/errorHandler.js'
 
 const router = Router()
 

@@ -1,6 +1,5 @@
 import express from 'express';
-import { createInquiry } from './services/healthInquiry';
-import routes from './routes';
+import routes from './routes/index.js';
 
 const app = express();
 app.use(express.json());

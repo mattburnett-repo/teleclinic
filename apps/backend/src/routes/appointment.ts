@@ -4,8 +4,8 @@ import {
   confirmAppointment,
   getAppointment,
   getDoctorTimeSlots
-} from '../services/appointment'
-import { ApiError } from '../middleware/errorHandler'
+} from '../services/appointment.js'
+import { ApiError } from '../middleware/errorHandler.js'
 import { PrismaClient } from '@prisma/client'
 
 const router = Router()

@@ -4,8 +4,8 @@ import {
   getDoctorAvailability,
   bookTimeSlot,
   findMatchingDoctor
-} from '../services/doctor'
-import { ApiError } from '../middleware/errorHandler'
+} from '../services/doctor.js'
+import { ApiError } from '../middleware/errorHandler.js'
 
 const router = Router()
 
