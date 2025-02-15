@@ -30,4 +30,21 @@ export interface Doctor {
   name: string;
   speciality: string;
   availability: string[];
-} 
+}
+
+export type PatientRecord = {
+  patientName: string;
+  medicalHistory: Array<{
+    date: Date;
+    symptoms: string;
+    doctorName?: string;
+  }>;
+  lastVisit: string | null;
+  inquiries: HealthInquiry[];
+};
+
+export type PatientVisit = {
+  doctorName: string;
+  date: string;
+  reason: string;
+}; 

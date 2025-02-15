@@ -11,6 +11,29 @@ describe('Doctor', () => {
     expect(doctors[0]).toHaveProperty('availability');
   });
 
+   it('should match doctor based on symptoms', async () => {
+    const cases = [
+      { symptoms: 'Headache', expectedSpeciality: 'Neurology' },
+      { symptoms: 'Back Pain', expectedSpeciality: 'Orthopedics' },
+      { symptoms: 'Fever', expectedSpeciality: 'Internal Medicine' },
+      { symptoms: 'Anxiety', expectedSpeciality: 'Psychiatry' },
+      { symptoms: 'Unknown Symptom', expectedSpeciality: 'General Practice' }
+    ];
+
+    for (const { symptoms, expectedSpeciality } of cases) {
+      const inquiry: HealthInquiry = {
+        id: '123',
+        patientName: 'Test Patient',
+        symptoms,
+        urgency: 'medium',
+        status: 'pending'
+      };
+      
+      const match = await utils.findMatchingDoctor(inquiry);
+      expect(match.speciality).toBe(expectedSpeciality);
+    }
+  });
+
   it('should match doctor based on speciality', async () => {
     const inquiry: HealthInquiry = {
       id: '123',
