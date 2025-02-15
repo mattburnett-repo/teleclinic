@@ -10,5 +10,6 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
-  }
+  },
+  verbose: true,    // Enable verbose output for more details on tests
 } 

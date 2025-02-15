@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "tsc -w & node --watch dist/index.js",
-    "test": "jest --runInBand --config ../../jest.config.js"
+    "test": "jest --runInBand --colors --config ../../jest.config.js"
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",
