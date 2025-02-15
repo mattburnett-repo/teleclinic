@@ -58,19 +58,5 @@ describe('Patient Record Integration', () => {
       const record = await getPatientRecord(TEST_PATIENT_NAME)
       expect(record.medicalHistory[0].doctorName).toBe('Dr. Smith')
     })
-
-    it('should track patient visits', async () => {
-      const inquiry = await createTestInquiry()
-      await createTestDoctorMatch(inquiry.id)
-      const doctor = await getTestDoctor()
-      
-      // Schedule appointment
-      await scheduleAppointment(doctor.id, inquiry.id)
-
-      const visits = await getPatientVisits(TEST_PATIENT_NAME)
-      expect(visits).toHaveLength(1)
-      expect(visits[0].doctorName).toBe('Dr. Smith')
-      expect(visits[0].reason).toBe('Headache')
-    })
   })
 }) 

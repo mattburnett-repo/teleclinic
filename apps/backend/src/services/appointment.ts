@@ -4,20 +4,27 @@ import type { Appointment, TimeSlot } from '../types'
 const prisma = new PrismaClient()
 
 export async function scheduleAppointment(doctorId: string, inquiryId: string): Promise<Appointment> {
+  // Get doctor's first available slot
+  const doctor = await prisma.doctor.findUnique({
+    where: { id: doctorId }
+  })
+  if (!doctor || doctor.availability.length === 0) {
+    throw new Error('No available time slots')
+  }
+
+  // Check for existing appointments in this time slot
+  const existingAppointment = await prisma.appointment.findFirst({
+    where: {
+      doctorId,
+      time: doctor.availability[0]
+    }
+  })
+
+  if (existingAppointment) {
+    throw new Error('Time slot already booked')
+  }
+
   return await prisma.$transaction(async (tx) => {
-    // First check if doctor exists and has availability
-    const doctor = await tx.doctor.findUnique({
-      where: { 
-        id: doctorId
-      },
-      select: {
-        id: true,
-        availability: true
-      }
-    })
-    
-    if (!doctor || doctor.availability.length === 0) throw new Error('No available time slots')
-    
     // Create appointment with first available time slot
     const appointment = await tx.appointment.create({
       data: {

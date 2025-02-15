@@ -65,7 +65,8 @@ export async function getPatientVisits(patientName: string): Promise<PatientVisi
     where: {
       inquiryId: {
         in: inquiries.map(i => i.id)
-      }
+      },
+      confirmed: true
     }
   })
 
