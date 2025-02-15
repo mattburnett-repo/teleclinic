@@ -9,4 +9,10 @@ export const SYMPTOMS = {
   DEPRESSION: { value: 'depression', label: 'Depression', speciality: 'Psychiatry' }
 } as const
 
-export type Symptom = keyof typeof SYMPTOMS 
+export type SymptomKey = keyof typeof SYMPTOMS
+export type SymptomValue = (typeof SYMPTOMS)[SymptomKey]['value']
+export type Symptom = {
+  value: SymptomValue
+  label: string
+  speciality: string
+} 

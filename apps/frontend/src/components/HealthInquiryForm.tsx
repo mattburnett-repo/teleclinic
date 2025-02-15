@@ -1,21 +1,22 @@
 import React from 'react'
-import { SYMPTOMS } from '../constants/symptoms'
+import { SYMPTOMS, type SymptomKey, type SymptomValue } from '../constants/symptoms'
+import { useHealthInquiry } from '../context/HealthInquiryContext'
 
 export function HealthInquiryForm() {
+  const { inquiry, updateInquiry, submitInquiry } = useHealthInquiry()
   const [submitted, setSubmitted] = React.useState(false)
   const [errors, setErrors] = React.useState<string[]>([])
-  const [name, setName] = React.useState('')
-  const [symptoms, setSymptoms] = React.useState('')
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault()
     const newErrors = []
-    if (!name) newErrors.push('Name is required')
-    if (!symptoms) newErrors.push('Symptoms are required')
+    if (!inquiry.patientName) newErrors.push('Name is required')
+    if (!inquiry.symptom) newErrors.push('Symptoms are required')
     
     if (newErrors.length === 0) {
       setSubmitted(true)
       setErrors([])
+      submitInquiry()
     } else {
       setErrors(newErrors)
       setSubmitted(false)
@@ -24,15 +25,20 @@ export function HealthInquiryForm() {
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    setName(value)
+    updateInquiry({ patientName: value })
     if (value && errors.includes('Name is required')) {
       setErrors(errors.filter(error => error !== 'Name is required'))
     }
   }
 
   const handleSymptomsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value
-    setSymptoms(value)
+    const value = e.target.value as SymptomValue
+    // Find the key (e.g., "HEADACHE") that matches the selected value
+    const symptomKey = (Object.entries(SYMPTOMS).find(
+      ([_, symptom]) => symptom.value === value
+    )?.[0] as SymptomKey) || ''
+    
+    updateInquiry({ symptom: symptomKey })
     if (value && errors.includes('Symptoms are required')) {
       setErrors(errors.filter(error => error !== 'Symptoms are required'))
     }
@@ -49,7 +55,7 @@ export function HealthInquiryForm() {
         <input 
           type="text" 
           aria-label="name" 
-          value={name} 
+          value={inquiry.patientName} 
           onChange={handleNameChange}
           className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-2 text-gray-700 transform transition-all duration-200 hover:border-blue-300"
         />
@@ -63,7 +69,7 @@ export function HealthInquiryForm() {
         <span className="block text-gray-600 text-sm font-medium mb-2">Symptoms:</span>
         <select
           aria-label="symptoms" 
-          value={symptoms} 
+          value={inquiry.symptom ? SYMPTOMS[inquiry.symptom as keyof typeof SYMPTOMS].value : ''} 
           onChange={handleSymptomsChange}
           className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-2 text-gray-700 transform transition-all duration-200 hover:border-blue-300 bg-white"
         >

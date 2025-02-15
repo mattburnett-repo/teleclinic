@@ -1,10 +1,19 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { HealthInquiryForm } from '../../components/HealthInquiryForm'
-import { SYMPTOMS } from '../../constants/symptoms'
+import { SYMPTOMS, type SymptomKey } from '../../constants/symptoms'
+import { HealthInquiryProvider } from '../../context/HealthInquiryContext'
 
 describe('HealthInquiryForm', () => {
+  const renderWithProvider = () => {
+    render(
+      <HealthInquiryProvider>
+        <HealthInquiryForm />
+      </HealthInquiryProvider>
+    )
+  }
+
   it('should render all symptoms in dropdown', () => {
-    render(<HealthInquiryForm />)
+    renderWithProvider()
     
     // Open dropdown
     const dropdown = screen.getByLabelText(/symptoms/i)
@@ -17,7 +26,7 @@ describe('HealthInquiryForm', () => {
   })
 
   it('should submit form with selected symptom', async () => {
-    render(<HealthInquiryForm />)
+    renderWithProvider()
     
     // Fill name
     fireEvent.change(screen.getByLabelText(/name/i), {
@@ -38,7 +47,7 @@ describe('HealthInquiryForm', () => {
   })
 
   it('should show validation error for empty symptom selection', () => {
-    render(<HealthInquiryForm />)
+    renderWithProvider()
     
     // Fill only name
     fireEvent.change(screen.getByLabelText(/name/i), {
@@ -52,7 +61,7 @@ describe('HealthInquiryForm', () => {
   })
 
   it('should update selected symptom when choosing from dropdown', () => {
-    render(<HealthInquiryForm />)
+    renderWithProvider()
     
     const dropdown = screen.getByLabelText(/symptoms/i)
     

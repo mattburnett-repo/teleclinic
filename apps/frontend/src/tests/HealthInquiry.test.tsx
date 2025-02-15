@@ -1,11 +1,16 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { HealthInquiryForm } from '../components/HealthInquiryForm'
-import { SYMPTOMS } from '../constants/symptoms'
+import { SYMPTOMS, type SymptomKey } from '../constants/symptoms'
+import { HealthInquiryProvider } from '../context/HealthInquiryContext'
 
 describe('Health Inquiry Flow', () => {
   describe('HealthInquiryForm', () => {
     it('should submit patient symptoms', async () => {
-      render(<HealthInquiryForm />)
+      render(
+        <HealthInquiryProvider>
+          <HealthInquiryForm />
+        </HealthInquiryProvider>
+      )
       
       fireEvent.change(screen.getByLabelText(/name/i), {
         target: { value: 'John Doe' }
@@ -24,7 +29,11 @@ describe('Health Inquiry Flow', () => {
     })
 
     it('should show validation errors', () => {
-      render(<HealthInquiryForm />)
+      render(
+        <HealthInquiryProvider>
+          <HealthInquiryForm />
+        </HealthInquiryProvider>
+      )
       
       fireEvent.click(screen.getByRole('button', { name: /submit/i }))
       
