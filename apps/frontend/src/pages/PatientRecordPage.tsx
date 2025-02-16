@@ -1,28 +1,48 @@
 import React from 'react'
 import { useHealthInquiry } from '../context/HealthInquiryContext'
-import { MOCK_DOCTORS } from '../mocks/doctors'
+import { getDoctor } from '../api/doctors'
+import { getPatientVisits } from '../api/visits'
+import type { Doctor } from '../types/doctor'
+import type { Visit } from '../types/visit'
+import { ApiError } from '../api/client'
 
 export function PatientRecordPage() {
   const { inquiry, resetInquiry } = useHealthInquiry()
-  const doctor = MOCK_DOCTORS.find(d => d.id === inquiry.appointment?.doctorId)
+  const [doctor, setDoctor] = React.useState<Doctor>()
+  const [pastVisits, setPastVisits] = React.useState<Visit[]>([])
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState<string>()
 
-  const pastVisits = [
-    {
-      date: '2024-02-15',
-      doctor: 'Dr. Emily Parker',
-      speciality: 'Internal Medicine',
-      reason: 'FEVER'
-    },
-    {
-      date: '2024-01-03',
-      doctor: 'Dr. Michael Chen',
-      speciality: 'Neurology',
-      reason: 'MIGRAINE'
+  React.useEffect(() => {
+    if (inquiry.appointment?.doctorId) {
+      setLoading(true)
+      Promise.all([
+        getDoctor(inquiry.appointment.doctorId),
+        getPatientVisits(inquiry.id!)
+      ])
+        .then(([doctorData, visitsData]) => {
+          setDoctor(doctorData)
+          setPastVisits(visitsData)
+        })
+        .catch((err: ApiError) => setError(err.message))
+        .finally(() => setLoading(false))
     }
-  ]
+  }, [inquiry.appointment?.doctorId, inquiry.id])
 
   if (!doctor || !inquiry.appointment) {
-    return null
+    return (
+      <div className="w-full max-w-2xl">
+        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          {loading ? (
+            <div role="status" className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto" />
+          ) : error ? (
+            <p className="text-red-600">{error}</p>
+          ) : (
+            <p>No appointment found</p>
+          )}
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -62,15 +82,15 @@ export function PatientRecordPage() {
         <div className="mt-8 border-t pt-8">
           <h3 className="text-xl font-semibold text-gray-900 mb-4">Past Visits</h3>
           {pastVisits.map(visit => (
-            <div key={visit.date} className="mb-4 p-4 bg-gray-50 rounded-lg">
+            <div key={visit.id} className="mb-4 p-4 bg-gray-50 rounded-lg">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="font-medium text-gray-900">{visit.doctor}</p>
-                  <p className="text-gray-600">{visit.speciality}</p>
+                  <p className="font-medium text-gray-900">{visit.doctorName}</p>
+                  <p className="text-gray-600">{visit.doctorSpeciality}</p>
                 </div>
                 <p className="text-gray-600">{visit.date}</p>
               </div>
-              <p className="mt-2 text-gray-600">Reason: {visit.reason}</p>
+              <p className="mt-2 text-gray-600">Reason: {visit.symptom}</p>
             </div>
           ))}
         </div>

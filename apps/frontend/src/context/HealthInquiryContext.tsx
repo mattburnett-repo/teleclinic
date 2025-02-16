@@ -1,12 +1,15 @@
 import React from 'react'
 import type { SymptomKey } from '../constants/symptoms'
+import { submitInquiry as submitInquiryApi } from '../api/inquiries'
+import { ApiError } from '../api/client'
 
 interface HealthInquiry {
   id?: string
   patientName: string
   symptom: SymptomKey | ''
-  status: 'draft' | 'submitted' | 'matched' | 'scheduled' | 'confirmed' | 'completed'
+  status: 'draft' | 'submitting' | 'submitted' | 'matched' | 'scheduled' | 'confirmed' | 'completed'
   submittedAt?: Date
+  error?: string
   appointment?: {
     doctorId: string
     timeSlot: string
@@ -42,12 +45,27 @@ export function HealthInquiryProvider({
   }
 
   const submitInquiry = () => {
-    setInquiry(prev => ({
-      ...prev,
-      status: 'submitted',
-      id: Math.random().toString(36).slice(2),
-      submittedAt: new Date()
-    }))
+    if (!inquiry.symptom) return
+    
+    const data = {
+      patientName: inquiry.patientName,
+      symptom: inquiry.symptom
+    }
+    
+    setInquiry(prev => ({ ...prev, status: 'submitting' }))
+    
+    submitInquiryApi(data)
+      .then(response => {
+        setInquiry(prev => ({
+          ...prev,
+          id: response.id,
+          status: 'submitted',
+          submittedAt: new Date()
+        }))
+      })
+      .catch((error: ApiError) => {
+        setInquiry(prev => ({ ...prev, status: 'draft', error: error.message }))
+      })
   }
 
   const resetInquiry = () => {
