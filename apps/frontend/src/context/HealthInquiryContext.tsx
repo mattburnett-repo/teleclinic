@@ -24,8 +24,14 @@ const defaultInquiry: HealthInquiry = {
 
 export const HealthInquiryContext = React.createContext<HealthInquiryContextType | null>(null)
 
-export function HealthInquiryProvider({ children }: { children: React.ReactNode }) {
-  const [inquiry, setInquiry] = React.useState<HealthInquiry>(defaultInquiry)
+export function HealthInquiryProvider({ 
+  children,
+  initialState = defaultInquiry 
+}: { 
+  children: React.ReactNode
+  initialState?: HealthInquiry 
+}) {
+  const [inquiry, setInquiry] = React.useState<HealthInquiry>(initialState)
 
   const updateInquiry = (data: Partial<HealthInquiry>) => {
     setInquiry(prev => ({ ...prev, ...data }))

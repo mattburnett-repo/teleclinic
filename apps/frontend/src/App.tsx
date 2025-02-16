@@ -28,7 +28,7 @@ function AppContent() {
           </>
         )}
         {inquiry.status === 'submitted' && (
-          <DoctorMatchPage inquiryId={inquiry.id} />
+          <DoctorMatchPage />
         )}
       </main>
     </div>
