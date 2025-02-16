@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { HealthInquiryForm } from '../../../components/HealthInquiryForm'
+import { HealthInquiryPage } from '../../../pages/HealthInquiryPage'
 import { SYMPTOMS } from '../../../constants/symptoms'
 import { HealthInquiryProvider } from '../../../context/HealthInquiryContext'
 
@@ -7,7 +7,7 @@ describe('HealthInquiryForm', () => {
   const renderWithProvider = () => {
     render(
       <HealthInquiryProvider>
-        <HealthInquiryForm />
+        <HealthInquiryPage />
       </HealthInquiryProvider>
     )
   }

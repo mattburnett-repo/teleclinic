@@ -1,5 +1,5 @@
 import React from 'react'
-import { HealthInquiryForm } from './components/HealthInquiryForm'
+import { HealthInquiryPage } from './pages/HealthInquiryPage'
 import { DoctorMatchPage } from './pages/DoctorMatchPage'
 import { HealthInquiryProvider, useHealthInquiry } from './context/HealthInquiryContext'
 
@@ -47,7 +47,7 @@ function AppContent() {
                 Tell us about your symptoms and we'll match you with a qualified doctor.
               </p>
             </div>
-            <HealthInquiryForm />
+            <HealthInquiryPage />
           </>
         )}
         {inquiry.status === 'submitted' && (

@@ -2,7 +2,7 @@ import React from 'react'
 import { SYMPTOMS, type SymptomKey, type SymptomValue } from '../constants/symptoms'
 import { useHealthInquiry } from '../context/HealthInquiryContext'
 
-export function HealthInquiryForm() {
+export function HealthInquiryPage() {
   const { inquiry, updateInquiry, submitInquiry } = useHealthInquiry()
   const [submitted, setSubmitted] = React.useState(false)
   const [errors, setErrors] = React.useState<string[]>([])

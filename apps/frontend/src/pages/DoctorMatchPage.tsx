@@ -1,8 +1,6 @@
-import React from 'react'
 import { DoctorCard } from '../components/DoctorCard'
 import { useHealthInquiry } from '../context/HealthInquiryContext'
 import { SYMPTOMS } from '../constants/symptoms'
-import type { Doctor } from '../types/doctor'
 import { MOCK_DOCTORS } from '../mocks/doctors'
 
 export function DoctorMatchPage() {
