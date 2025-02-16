@@ -16,7 +16,10 @@ export function DoctorMatchPage() {
   return (
     <div className="w-full max-w-4xl">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-semibold text-gray-800 tracking-tight">
+        <h2 
+          data-testid="doctor-match-heading"
+          className="text-3xl font-semibold text-gray-800 tracking-tight"
+        >
           Matching Doctors
         </h2>
         <p className="mt-4 text-xl text-gray-600">

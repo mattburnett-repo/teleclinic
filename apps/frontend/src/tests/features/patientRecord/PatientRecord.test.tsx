@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { PatientRecordPage } from '../pages/PatientRecordPage'
+import { PatientRecordPage } from '../../../pages/PatientRecordPage'
 
 describe('Patient Record', () => {
   describe('PatientRecordPage', () => {

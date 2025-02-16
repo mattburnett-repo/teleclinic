@@ -47,7 +47,11 @@ export function HealthInquiryProvider({
   }
 
   const resetInquiry = () => {
-    setInquiry(defaultInquiry)
+    setInquiry(prev => ({
+      ...prev,
+      status: 'draft',
+      submittedAt: undefined
+    }))
   }
 
   return (

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { AppointmentScheduler } from '../components/AppointmentScheduler'
+import { AppointmentScheduler } from '../../../components/AppointmentScheduler'
 
 describe('Appointment Scheduling', () => {
   const mockTimeSlots = [

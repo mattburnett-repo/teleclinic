@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { DoctorCard } from '../components/DoctorCard'
-import { DoctorMatchPage } from '../pages/DoctorMatchPage'
-import { HealthInquiryProvider } from '../context/HealthInquiryContext'
-import type { SymptomKey } from '../constants/symptoms'
-import { TEST_DOCTOR } from '../mocks/doctors'
+import { DoctorCard } from '../../../components/DoctorCard'
+import { DoctorMatchPage } from '../../../pages/DoctorMatchPage'
+import { HealthInquiryProvider } from '../../../context/HealthInquiryContext'
+import type { SymptomKey } from '../../../constants/symptoms'
+import { TEST_DOCTOR } from '../../../mocks/doctors'
 
 describe('Doctor Matching', () => {
   describe('DoctorCard', () => {

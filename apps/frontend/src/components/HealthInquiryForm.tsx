@@ -47,7 +47,6 @@ export function HealthInquiryForm() {
   return (
     <form 
       className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-200 hover:shadow-xl"
-      data-testid="health-inquiry-form"
     >
       <h2 className="text-2xl font-semibold mb-8 text-gray-800 text-center tracking-tight">Submit Your Inquiry</h2>
       <label>
