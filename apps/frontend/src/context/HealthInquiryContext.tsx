@@ -3,7 +3,7 @@ import type { SymptomKey } from '../constants/symptoms'
 import { submitInquiry as submitInquiryApi } from '../api/inquiries'
 import { ApiError } from '../api/client'
 
-interface HealthInquiry {
+export interface HealthInquiry {
   id?: string
   patientName: string
   symptom: SymptomKey | ''
@@ -63,7 +63,7 @@ export function HealthInquiryProvider({
           submittedAt: new Date()
         }))
       })
-      .catch((error: ApiError) => {
+      .catch(error => {
         setInquiry(prev => ({ ...prev, status: 'draft', error: error.message }))
       })
   }
