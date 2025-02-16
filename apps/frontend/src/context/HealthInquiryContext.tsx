@@ -2,6 +2,7 @@ import React from 'react'
 import type { SymptomKey } from '../constants/symptoms'
 
 interface HealthInquiry {
+  id?: string
   patientName: string
   symptom: SymptomKey | ''
   status: 'draft' | 'submitted' | 'matched' | 'scheduled'
@@ -34,6 +35,7 @@ export function HealthInquiryProvider({ children }: { children: React.ReactNode 
     setInquiry(prev => ({
       ...prev,
       status: 'submitted',
+      id: Math.random().toString(36).slice(2),
       submittedAt: new Date()
     }))
   }

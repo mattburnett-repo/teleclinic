@@ -1,8 +1,8 @@
 import React from 'react'
 import { DoctorCard } from '../components/DoctorCard'
 
-type DoctorMatchPageProps = {
-  inquiryId: string
+interface DoctorMatchPageProps {
+  inquiryId?: string
 }
 
 export function DoctorMatchPage({ inquiryId }: DoctorMatchPageProps) {
