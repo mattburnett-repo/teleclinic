@@ -3,10 +3,11 @@ import type { Doctor } from '../types/doctor'
 
 interface DoctorCardProps {
   doctor: Doctor
-  onSelect?: () => void
+  selectedSlot?: string
+  onSelectSlot: (slot: string) => void
 }
 
-export function DoctorCard({ doctor, onSelect }: DoctorCardProps) {
+export function DoctorCard({ doctor, selectedSlot, onSelectSlot }: DoctorCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
       <div className="flex items-start space-x-4">
@@ -35,8 +36,12 @@ export function DoctorCard({ doctor, onSelect }: DoctorCardProps) {
           {doctor.availability.map(slot => (
             <button
               key={slot}
-              onClick={onSelect}
-              className="px-3 py-2 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-colors"
+              onClick={() => onSelectSlot(slot)}
+              className={`px-3 py-2 text-sm rounded-md transition-colors
+                ${slot === selectedSlot
+                  ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                  : 'text-gray-700 bg-gray-100 hover:bg-blue-50 hover:text-blue-600'
+                }`}
             >
               {new Date(slot).toLocaleTimeString('en-US', { 
                 hour: '2-digit',

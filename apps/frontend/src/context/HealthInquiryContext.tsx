@@ -5,8 +5,12 @@ interface HealthInquiry {
   id?: string
   patientName: string
   symptom: SymptomKey | ''
-  status: 'draft' | 'submitted' | 'matched' | 'scheduled'
+  status: 'draft' | 'submitted' | 'matched' | 'scheduled' | 'confirmed' | 'completed'
   submittedAt?: Date
+  appointment?: {
+    doctorId: string
+    timeSlot: string
+  }
 }
 
 interface HealthInquiryContextType {
@@ -47,11 +51,7 @@ export function HealthInquiryProvider({
   }
 
   const resetInquiry = () => {
-    setInquiry(prev => ({
-      ...prev,
-      status: 'draft',
-      submittedAt: undefined
-    }))
+    setInquiry(defaultInquiry)
   }
 
   return (

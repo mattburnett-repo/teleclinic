@@ -1,7 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { HealthInquiryPage } from '../../../pages/HealthInquiryPage'
-import { SYMPTOMS } from '../../../constants/symptoms'
+import { SYMPTOMS, type SymptomKey } from '../../../constants/symptoms'
 import { HealthInquiryProvider } from '../../../context/HealthInquiryContext'
+import { App } from '../../../App'
 
 describe('HealthInquiryForm', () => {
   const renderWithProvider = () => {
