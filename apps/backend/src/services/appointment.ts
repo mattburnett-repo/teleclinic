@@ -8,7 +8,6 @@ export async function scheduleAppointment(doctorId: string, inquiryId: string, t
   const doctor = await prisma.doctor.findUnique({
     where: { id: doctorId }
   })
-  console.log('Found doctor:', doctor)
   if (!doctor || doctor.availability.length === 0) {
     throw new Error('No available time slots')
   }
@@ -34,6 +33,16 @@ export async function scheduleAppointment(doctorId: string, inquiryId: string, t
         time,
         status: 'scheduled',
         confirmed: false
+      }
+    })
+    
+    // Update doctor availability
+    await tx.doctor.update({
+      where: { id: doctorId },
+      data: {
+        availability: {
+          set: doctor.availability.filter(slot => slot !== time)
+        }
       }
     })
     

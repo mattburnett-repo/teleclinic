@@ -16,7 +16,7 @@ async function handleResponse<T>(response: Response): Promise<T> {
     const error: ApiErrorResponse = await response.json().catch(() => ({}))
     throw new ApiError(response.status, error.message || 'An error occurred')
   }
-  return response.json()
+  return response.json().catch(() => null) as T
 }
 
 export async function get<T>(path: string): Promise<T> {

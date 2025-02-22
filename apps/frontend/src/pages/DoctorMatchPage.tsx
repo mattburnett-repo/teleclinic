@@ -75,7 +75,7 @@ export function DoctorMatchPage() {
           </p>
         ) : (
           <p className="mt-4 text-xl text-gray-600">
-            We found {doctors.length} doctors specializing in {symptomSpeciality}
+            We found {doctors.length} available doctors specializing in {symptomSpeciality}
           </p>
         )}
       </div>
@@ -85,7 +85,7 @@ export function DoctorMatchPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${doctors.length === 1 ? 'md:grid-cols-1 max-w-xl mx-auto' : ''}`}>
           {doctors.map(doctor => (
             <DoctorCard 
               key={doctor.id} 

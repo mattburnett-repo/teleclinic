@@ -26,8 +26,15 @@ export async function getAvailableDoctors(speciality?: string) {
       OR: [
         { speciality: speciality },
         { id: speciality }
-      ]
-    } : undefined
+      ],
+      availability: {
+        isEmpty: false
+      }
+    } : {
+      availability: {
+        isEmpty: false
+      }
+    }
   })
 }
 
