@@ -34,7 +34,9 @@ describe('Health Inquiry Integration', () => {
         id: 'd1',
         name: 'Dr. Smith',
         speciality: 'Neurology',
-        availability: ['2024-03-20T10:00:00Z']
+        availability: ['2024-03-20T10:00:00Z'],
+        rating: 4.8,
+        experience: 10
       }
     })
 

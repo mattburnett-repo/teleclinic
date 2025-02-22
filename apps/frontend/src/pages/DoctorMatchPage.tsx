@@ -41,8 +41,8 @@ export function DoctorMatchPage() {
       try {
         await createAppointment({
           doctorId: selectedDoctor,
-          patientId: inquiry.id!,
-          timeSlot: selectedSlot
+          inquiryId: inquiry.id!,
+          time: selectedSlot
         })
         
         updateInquiry({

@@ -16,6 +16,9 @@ CREATE TABLE "Doctor" (
     "name" TEXT NOT NULL,
     "speciality" TEXT NOT NULL,
     "availability" TEXT[],
+    "imageUrl" TEXT,
+    "rating" DOUBLE PRECISION NOT NULL,
+    "experience" INTEGER NOT NULL,
 
     CONSTRAINT "Doctor_pkey" PRIMARY KEY ("id")
 );

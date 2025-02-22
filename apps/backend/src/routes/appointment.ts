@@ -13,7 +13,7 @@ const prisma = new PrismaClient()
 
 router.post('/', async (req, res, next) => {
   try {
-    const { doctorId, inquiryId } = req.body
+    const { doctorId, inquiryId, time } = req.body
     if (!doctorId || !inquiryId) {
       throw new ApiError(400, 'Doctor ID and inquiry ID are required')
     }
@@ -35,7 +35,7 @@ router.post('/', async (req, res, next) => {
     }
 
     try {
-      const appointment = await scheduleAppointment(doctorId, inquiryId)
+      const appointment = await scheduleAppointment(doctorId, inquiryId, time)
       res.json(appointment)
     } catch (err: any) {
       if (err.message === 'Time slot already booked') {

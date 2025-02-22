@@ -27,7 +27,7 @@ function AppContent() {
     } else if (inquiry.status === 'completed') {
       updateInquiry({ status: 'confirmed' })
     } else {
-      resetInquiry()
+      updateInquiry({ status: 'draft' })
     }
   }
 

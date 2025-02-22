@@ -20,15 +20,15 @@ function determineSpeciality(symptoms: string): string {
   return SYMPTOM_SPECIALITY_MAP[normalizedSymptoms] || SYMPTOM_SPECIALITY_MAP.default;
 }
 
-export async function getAvailableDoctors(): Promise<Doctor[]> {
-  const doctors = await prisma.doctor.findMany({
-    where: {
-      availability: {
-        isEmpty: false
-      }
-    }
+export async function getAvailableDoctors(speciality?: string) {
+  return prisma.doctor.findMany({
+    where: speciality ? {
+      OR: [
+        { speciality: speciality },
+        { id: speciality }
+      ]
+    } : undefined
   })
-  return doctors as Doctor[]
 }
 
 export async function findMatchingDoctor(inquiry: { symptoms: string }): Promise<{ doctorId: string; speciality: string }> {
@@ -63,7 +63,7 @@ export async function bookTimeSlot(doctorId: string, timeSlot: string): Promise<
     where: { id: doctorId },
     data: {
       availability: {
-        set: doctor.availability.filter(slot => slot !== timeSlot)
+        set: doctor.availability
       }
     }
   })

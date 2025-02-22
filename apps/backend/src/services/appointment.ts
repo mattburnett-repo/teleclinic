@@ -3,11 +3,12 @@ import type { Appointment, TimeSlot } from '../types'
 
 const prisma = new PrismaClient()
 
-export async function scheduleAppointment(doctorId: string, inquiryId: string): Promise<Appointment> {
+export async function scheduleAppointment(doctorId: string, inquiryId: string, time: string): Promise<Appointment> {
   // Get doctor's first available slot
   const doctor = await prisma.doctor.findUnique({
     where: { id: doctorId }
   })
+  console.log('Found doctor:', doctor)
   if (!doctor || doctor.availability.length === 0) {
     throw new Error('No available time slots')
   }
@@ -30,19 +31,9 @@ export async function scheduleAppointment(doctorId: string, inquiryId: string): 
       data: {
         doctorId,
         inquiryId,
-        time: doctor.availability[0],
+        time,
         status: 'scheduled',
         confirmed: false
-      }
-    })
-    
-    // Remove used time slot from doctor's availability
-    await tx.doctor.update({
-      where: { id: doctorId },
-      data: {
-        availability: {
-          set: doctor.availability.filter(slot => slot !== appointment.time)
-        }
       }
     })
     

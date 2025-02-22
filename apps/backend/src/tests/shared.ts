@@ -44,7 +44,9 @@ export async function createTestDoctor() {
       id: TEST_DOCTOR_ID,
       name: TEST_DOCTOR_NAME,
       speciality: TEST_SPECIALITY,
-      availability: TEST_TIME_SLOTS
+      availability: TEST_TIME_SLOTS,
+      rating: 4.8,
+      experience: 10
     }
   })
 }

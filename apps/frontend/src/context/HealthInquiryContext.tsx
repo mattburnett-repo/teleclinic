@@ -13,6 +13,10 @@ export interface HealthInquiry {
   appointment?: {
     doctorId: string
     timeSlot: string
+    selected?: {
+      doctorId: string
+      timeSlot: string
+    }
   }
 }
 
@@ -49,7 +53,7 @@ export function HealthInquiryProvider({
     
     const data = {
       patientName: inquiry.patientName,
-      symptom: inquiry.symptom
+      symptoms: inquiry.symptom
     }
     
     setInquiry(prev => ({ ...prev, status: 'submitting' }))

@@ -15,6 +15,9 @@ model HealthInquiry {
   status      String       @default("pending")
   createdAt   DateTime     @default(now())
   doctorMatch DoctorMatch?
+
+  // Reverse relation from Appointment
+  appointments Appointment[]
 }
 
 model Doctor {
@@ -22,7 +25,13 @@ model Doctor {
   name         String
   speciality   String
   availability String[]
+  imageUrl     String?
+  rating       Float
+  experience   Int
   matches      DoctorMatch[]
+
+  // Reverse relation from Appointment
+  appointments Appointment[]
 }
 
 model DoctorMatch {
@@ -40,4 +49,7 @@ model Appointment {
   time      String
   status    String  @default("scheduled")
   confirmed Boolean @default(false)
+  
+  doctor    Doctor  @relation(fields: [doctorId], references: [id])
+  inquiry   HealthInquiry @relation(fields: [inquiryId], references: [id])
 }

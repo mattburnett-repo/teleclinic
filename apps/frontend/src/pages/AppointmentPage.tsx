@@ -1,11 +1,21 @@
 import React from 'react'
 import { useHealthInquiry } from '../context/HealthInquiryContext'
-import { MOCK_DOCTORS } from '../mocks/doctors'
+import { getDoctor } from '../api/doctors'
+import type { Doctor } from '../types/doctor'
 
 export function AppointmentPage() {
   const { inquiry, updateInquiry } = useHealthInquiry()
-  const doctor = MOCK_DOCTORS.find(d => d.id === inquiry.appointment?.doctorId)
-  
+  const [doctor, setDoctor] = React.useState<Doctor>()
+  const [loading, setLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    if (inquiry.appointment?.doctorId) {
+      getDoctor(inquiry.appointment.doctorId)
+        .then(setDoctor)
+        .finally(() => setLoading(false))
+    }
+  }, [inquiry.appointment?.doctorId])
+
   if (!doctor || !inquiry.appointment) {
     return null
   }
