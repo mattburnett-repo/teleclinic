@@ -6,7 +6,6 @@ import { createInquiry } from '../../services/healthInquiry'
 import { scheduleAppointment } from '../../services/appointment'
 import { PrismaClient } from '@prisma/client'
 import {
-  cleanupDatabase,
   createTestDoctor,
   getTestDoctor,
   createTestInquiry,
@@ -20,7 +19,6 @@ const prisma = new PrismaClient()
 
 describe('Patient Record Integration', () => {
   beforeEach(async () => {
-    await cleanupDatabase()
     await createTestDoctor()
   })
 

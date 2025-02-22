@@ -18,15 +18,6 @@ export const TEST_SYMPTOMS = {
 }
 
 // Database Helpers
-export async function cleanupDatabase() {
-  await prisma.$transaction(async (tx) => {
-    await tx.appointment.deleteMany({})
-    await tx.doctorMatch.deleteMany({})
-    await tx.doctor.deleteMany({})
-    await tx.healthInquiry.deleteMany({})
-  })
-}
-
 export async function getTestDoctor() {
   const doctor = await prisma.doctor.findUnique({ where: { id: TEST_DOCTOR_ID } })
   if (!doctor) throw new Error('Test doctor not found')
@@ -34,9 +25,20 @@ export async function getTestDoctor() {
 }
 
 export async function createTestDoctor() {
-  // Delete any existing test doctor first
-  await prisma.doctor.deleteMany({
-    where: { id: TEST_DOCTOR_ID }
+  // Delete related records first
+  await prisma.$transaction(async (tx) => {
+    await tx.doctorMatch.deleteMany({
+      where: { doctorId: TEST_DOCTOR_ID }
+    })
+    await tx.appointment.deleteMany({
+      where: { doctorId: TEST_DOCTOR_ID }
+    })
+    await tx.healthInquiry.deleteMany({
+      where: { patientName: TEST_PATIENT_NAME }
+    })
+    await tx.doctor.deleteMany({
+      where: { id: TEST_DOCTOR_ID }
+    })
   })
 
   return await prisma.doctor.create({

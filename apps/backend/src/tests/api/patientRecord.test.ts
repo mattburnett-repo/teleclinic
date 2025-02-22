@@ -2,7 +2,6 @@ import request from 'supertest'
 import express from 'express'
 import routes from '../../routes'
 import { 
-  cleanupDatabase, 
   createTestDoctor, 
   createTestInquiry,
   createTestDoctorMatch,
@@ -17,7 +16,6 @@ app.use(routes)
 
 describe('Patient Record API', () => {
   beforeEach(async () => {
-    await cleanupDatabase()
     await createTestDoctor()
   })
 

@@ -7,7 +7,6 @@ import {
 } from '../../services/doctor'
 import { PrismaClient } from '@prisma/client'
 import { 
-  cleanupDatabase, 
   createTestDoctor, 
   TEST_DOCTOR_ID, 
   TEST_TIME_SLOTS,
@@ -19,7 +18,6 @@ const prisma = new PrismaClient()
 
 describe('Doctor Integration', () => {
   beforeEach(async () => {
-    await cleanupDatabase()
     await createTestDoctor()
   })
 

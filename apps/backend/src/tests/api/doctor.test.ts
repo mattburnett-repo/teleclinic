@@ -1,7 +1,7 @@
 import request from 'supertest'
 import express from 'express'
 import routes from '../../routes'
-import { cleanupDatabase, createTestDoctor, TEST_DOCTOR_ID, TEST_SYMPTOMS, TEST_TIME_SLOTS } from '../shared'
+import { createTestDoctor, TEST_DOCTOR_ID, TEST_SYMPTOMS, TEST_TIME_SLOTS } from '../shared'
 
 const app = express()
 app.use(express.json())
@@ -9,7 +9,6 @@ app.use(routes)
 
 describe('Doctor API', () => {
   beforeEach(async () => {
-    await cleanupDatabase()
     await createTestDoctor()
   })
 

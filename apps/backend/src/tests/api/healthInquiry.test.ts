@@ -1,7 +1,7 @@
 import request from 'supertest'
 import express from 'express'
 import routes from '../../routes'
-import { cleanupDatabase, TEST_PATIENT_NAME, TEST_SYMPTOMS } from '../shared'
+import { TEST_PATIENT_NAME, TEST_SYMPTOMS } from '../shared'
 
 const app = express()
 app.use(express.json())
@@ -9,7 +9,6 @@ app.use(routes)
 
 describe('Health Inquiry API', () => {
   beforeEach(async () => {
-    await cleanupDatabase()
   })
 
   describe('POST /api/inquiries', () => {

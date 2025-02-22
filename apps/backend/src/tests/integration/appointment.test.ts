@@ -6,13 +6,12 @@ import {
 } from '../../services/appointment'
 import { createInquiry } from '../../services/healthInquiry'
 import { PrismaClient } from '@prisma/client'
-import { cleanupDatabase, createTestDoctor, TEST_DOCTOR_ID, TEST_TIME_SLOTS, getTestDoctor, createTestInquiry, TEST_SYMPTOMS } from '../shared'
+import { createTestDoctor, TEST_DOCTOR_ID, TEST_TIME_SLOTS, getTestDoctor, createTestInquiry, TEST_SYMPTOMS } from '../shared'
 
 const prisma = new PrismaClient()
 
 describe('Appointment Integration', () => {
   beforeEach(async () => {
-    await cleanupDatabase()
     await createTestDoctor()
   })
 
