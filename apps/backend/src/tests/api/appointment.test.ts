@@ -5,7 +5,8 @@ import {
   cleanupDatabase, 
   createTestDoctor, 
   createTestInquiry,
-  TEST_DOCTOR_ID 
+  TEST_DOCTOR_ID,
+  TEST_TIME_SLOTS
 } from '../shared'
 
 const app = express()
@@ -26,7 +27,8 @@ describe('Appointment API', () => {
         .post('/api/appointments')
         .send({
           doctorId: TEST_DOCTOR_ID,
-          inquiryId: inquiry.id
+          inquiryId: inquiry.id,
+          time: TEST_TIME_SLOTS[0]
         })
         .expect(200)
 
@@ -74,7 +76,8 @@ describe('Appointment API', () => {
         .post('/api/appointments')
         .send({
           doctorId: TEST_DOCTOR_ID,
-          inquiryId: inquiry.id
+          inquiryId: inquiry.id,
+          time: TEST_TIME_SLOTS[0]
         })
 
       const response = await request(app)
@@ -98,7 +101,8 @@ describe('Appointment API', () => {
         .post('/api/appointments')
         .send({
           doctorId: TEST_DOCTOR_ID,
-          inquiryId: inquiry.id
+          inquiryId: inquiry.id,
+          time: TEST_TIME_SLOTS[0]
         })
 
       const response = await request(app)

@@ -21,7 +21,7 @@ describe('Appointment Integration', () => {
       const doctor = await getTestDoctor()
       
       const inquiry = await createTestInquiry()
-      const appointment = await scheduleAppointment(doctor.id, inquiry.id)
+      const appointment = await scheduleAppointment(doctor.id, inquiry.id, TEST_TIME_SLOTS[0])
       
       expect(appointment.doctorId).toBe(doctor.id)
       expect(appointment.inquiryId).toBe(inquiry.id)
@@ -41,11 +41,11 @@ describe('Appointment Integration', () => {
       const inquiry1 = await createTestInquiry('Patient 1', TEST_SYMPTOMS.HEADACHE)
       const inquiry2 = await createTestInquiry('Patient 2', TEST_SYMPTOMS.MIGRAINE)
       
-      await scheduleAppointment(doctor.id, inquiry1.id)
-      await scheduleAppointment(doctor.id, inquiry2.id)
+      await scheduleAppointment(doctor.id, inquiry1.id, TEST_TIME_SLOTS[0])
+      await scheduleAppointment(doctor.id, inquiry2.id, TEST_TIME_SLOTS[1])
       
       const inquiry3 = await createInquiry('Patient 3', 'Headache')
-      await expect(scheduleAppointment(doctor.id, inquiry3.id))
+      await expect(scheduleAppointment(doctor.id, inquiry3.id, TEST_TIME_SLOTS[0]))
         .rejects
         .toThrow('No available time slots')
     })
@@ -56,7 +56,7 @@ describe('Appointment Integration', () => {
       const doctor = await getTestDoctor()
       
       const inquiry = await createTestInquiry()
-      const appointment = await scheduleAppointment(doctor.id, inquiry.id)
+      const appointment = await scheduleAppointment(doctor.id, inquiry.id, TEST_TIME_SLOTS[0])
       
       const confirmed = await confirmAppointment(appointment.id)
       expect(confirmed.confirmed).toBe(true)
@@ -76,7 +76,7 @@ describe('Appointment Integration', () => {
       const doctor = await getTestDoctor()
       
       const inquiry = await createInquiry('Test Patient', 'Headache')
-      const appointment = await scheduleAppointment(doctor.id, inquiry.id)
+      const appointment = await scheduleAppointment(doctor.id, inquiry.id, TEST_TIME_SLOTS[0])
       
       const slots = await getDoctorTimeSlots(doctor.id)
       expect(slots.map(s => s.time)).toEqual([TEST_TIME_SLOTS[1]])

@@ -1,3 +1,4 @@
+import { scheduleAppointment } from '../../services/appointment'
 import { 
   getAvailableDoctors,
   findMatchingDoctor,

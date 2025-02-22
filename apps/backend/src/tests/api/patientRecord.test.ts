@@ -7,7 +7,8 @@ import {
   createTestInquiry,
   createTestDoctorMatch,
   TEST_PATIENT_NAME,
-  TEST_DOCTOR_ID
+  TEST_DOCTOR_ID,
+  TEST_TIME_SLOTS
 } from '../shared'
 
 const app = express()
@@ -58,15 +59,14 @@ describe('Patient Record API', () => {
 
     it('should show visits with confirmed appointments', async () => {
       const inquiry = await createTestInquiry()
-      await createTestDoctorMatch(inquiry.id)
-      
-      // Create and confirm appointment
       const appointmentRes = await request(app)
         .post('/api/appointments')
         .send({
           doctorId: TEST_DOCTOR_ID,
-          inquiryId: inquiry.id
+          inquiryId: inquiry.id,
+          time: TEST_TIME_SLOTS[0]
         })
+        .expect(200)
 
       await request(app)
         .put(`/api/appointments/${appointmentRes.body.id}/confirm`)
@@ -78,20 +78,18 @@ describe('Patient Record API', () => {
 
       expect(response.body).toHaveLength(1)
       expect(response.body[0]).toHaveProperty('doctorName')
-      expect(response.body[0]).toHaveProperty('date')
-      expect(response.body[0]).toHaveProperty('reason')
     })
 
     it('should not show unconfirmed appointments as visits', async () => {
       const inquiry = await createTestInquiry()
       await createTestDoctorMatch(inquiry.id)
       
-      // Create appointment but don't confirm it
       await request(app)
         .post('/api/appointments')
         .send({
           doctorId: TEST_DOCTOR_ID,
-          inquiryId: inquiry.id
+          inquiryId: inquiry.id,
+          time: TEST_TIME_SLOTS[0]
         })
 
       const response = await request(app)

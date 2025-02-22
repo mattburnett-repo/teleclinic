@@ -70,7 +70,7 @@ export async function bookTimeSlot(doctorId: string, timeSlot: string): Promise<
     where: { id: doctorId },
     data: {
       availability: {
-        set: doctor.availability
+        set: doctor.availability.filter(slot => slot !== timeSlot)
       }
     }
   })
