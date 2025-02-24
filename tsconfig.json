@@ -4,12 +4,7 @@
     "lib": [
       "ES2020",
       "DOM"
-    ], // Add ES2015 for Promise
-    "types": [
-      "jest",
-      "node",
-      "supertest"
-    ], // Ensure Jest types are included
+    ], // Add ES2015 for Promise // Ensure Jest types are included
     "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
