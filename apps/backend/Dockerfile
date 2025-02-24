@@ -7,21 +7,22 @@ WORKDIR /app
 
 # Copy package files first for better caching
 COPY package.json yarn.lock ./
-COPY apps/backend/package.json ./apps/backend/
 
-# Install dependencies specifically for backend workspace
-RUN yarn workspaces focus backend
+# Copy backend package.json and prisma folder
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/backend/prisma ./apps/backend/prisma/
+
+# Install backend dependencies
+RUN yarn workspace backend install
 
 # Copy all source files
 COPY . .
 
-# Generate Prisma client from within backend workspace
-WORKDIR /app/apps/backend
-RUN yarn install
-RUN yarn prisma generate
+# Generate Prisma client
+RUN yarn workspace backend prisma generate
 
-# Build TypeScript
+# Build the backend app (TypeScript)
 RUN yarn workspace backend build
 
-# Run the built app
+# Run the app
 CMD ["yarn", "workspace", "backend", "start"]
