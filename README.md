@@ -1,21 +1,61 @@
 # TeleClinic Demo
 
-A demonstration project showcasing a health inquiry workflow system.
+A simple demo application showing a health inquiry workflow where patients can:
+- Submit health inquiries
+- Get matched with appropriate doctors
+- Schedule appointments
+- View their medical records
 
 ## Project Structure
-- `apps/frontend`: React + Tailwind application
-- `apps/backend`: Express + Prisma API
-- `packages/types`: Shared TypeScript types
-- `docker`: Container configurations
+```
+teleclinic/
+├── apps/
+│   ├── frontend/  # React + Vite + Tailwind
+│   └── backend/   # Express + Prisma + PostgreSQL
+└── package.json   # Yarn workspaces config
+```
+
+## Tech Stack
+- Frontend: React, TypeScript, Tailwind CSS, Vite
+- Backend: Node.js, Express, TypeScript
+- Database: PostgreSQL with Prisma ORM
+- Testing: Jest
 
 ## Development
-1. Clone the repository
-2. Install dependencies with `yarn install`
-3. Start development environment with `yarn dev`
+
+Prerequisites:
+- Node.js 18+
+- Yarn
+- PostgreSQL
+
+Setup:
+```bash
+# Install dependencies
+yarn install
+
+# Set up environment variables
+cp apps/backend/.env.example apps/backend/.env
+cp apps/frontend/.env.example apps/frontend/.env
+
+# Start development servers
+yarn dev
+```
 
 ## Testing
-- Frontend tests: `cd apps/frontend && yarn test`
-- Backend tests: `cd apps/backend && yarn test`
+```bash
+# Run all tests
+yarn test
 
-## Deployment
-Deployed via GitHub Actions to Render.com 
+# Run specific workspace tests
+yarn workspace frontend test
+yarn workspace backend test
+```
+
+## Features
+- Health inquiry submission
+- Doctor matching based on symptoms
+- Appointment scheduling
+- Medical record viewing
+
+## Project Status
+This is a demo application intended to showcase a basic telehealth workflow. 
