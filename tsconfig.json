@@ -6,7 +6,9 @@
       "DOM"
     ], // Add ES2015 for Promise
     "types": [
-      "jest"
+      "jest",
+      "node",
+      "supertest"
     ], // Ensure Jest types are included
     "module": "ESNext",
     "moduleResolution": "node",
