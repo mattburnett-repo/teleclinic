@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:16.19.0
+FROM node:18.12.0
 
 # Enable Corepack to manage the correct version of Yarn as specified in the package.json
 RUN corepack enable
