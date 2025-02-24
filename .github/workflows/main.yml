@@ -13,12 +13,26 @@ jobs:
       ALLOWED_ORIGINS: http://localhost
     steps:
       - uses: actions/checkout@v4
+      
+      # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      # Build frontend image
       - name: Build frontend image
         run: docker build -f apps/frontend/Dockerfile .
+
+      # Build backend image
       - name: Build backend image
         run: docker build -f apps/backend/Dockerfile .
+
+      # Run frontend tests using the root package.json script
+      - name: Run frontend tests
+        run: yarn test:frontend
+
+      # Run backend tests using the root package.json script
+      - name: Run backend tests
+        run: yarn test:backend
 
   deploy:
     needs: docker
@@ -26,5 +40,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
+
       # Deployment steps will be added later
-      # Environment variables will be added later 
+      # Environment variables will be added later
