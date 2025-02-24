@@ -2,6 +2,9 @@ FROM node:20
 
 WORKDIR /app
 
+# Enable Corepack and install Yarn 4
+RUN corepack enable && corepack prepare yarn@4.6.0 --activate
+
 # Copy root package.json and yarn.lock to install all dependencies
 COPY package.json yarn.lock ./
 
