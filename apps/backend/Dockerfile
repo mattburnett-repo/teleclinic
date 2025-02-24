@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 COPY apps/backend/package.json ./apps/backend/
 
-# Install dependencies specifically for backend
+# Install dependencies specifically for backend workspace
 RUN yarn workspaces focus backend
 
 # Copy all source files
@@ -17,8 +17,8 @@ COPY . .
 
 # Generate Prisma client from within backend workspace
 WORKDIR /app/apps/backend
+RUN yarn install
 RUN yarn prisma generate
-WORKDIR /app
 
 # Build TypeScript
 RUN yarn workspace backend build
