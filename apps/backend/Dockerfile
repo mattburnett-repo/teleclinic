@@ -12,8 +12,8 @@ COPY package.json yarn.lock ./
 COPY apps/backend/package.json ./apps/backend/
 COPY apps/backend/prisma ./apps/backend/prisma/
 
-# Install dependencies for the entire project
-RUN yarn install --immutable
+# Install dependencies for the entire project without modifying the lockfile
+RUN yarn install --immutable-cache
 
 # Copy the rest of the application code
 COPY . .
