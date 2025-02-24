@@ -1,21 +1,16 @@
-FROM node:20
+# Use an official Node.js image as a base
+FROM node:18
 
+# Set the working directory to /app
 WORKDIR /app
 
-# Enable Corepack and install Yarn 4
-RUN corepack enable && corepack prepare yarn@4.6.0 --activate
-
-# Copy root package.json and yarn.lock to install all dependencies
+# Copy the package.json and yarn.lock files to the container
 COPY package.json yarn.lock ./
 
-# Copy backend package.json and prisma folder
-COPY apps/backend/package.json ./apps/backend/
-COPY apps/backend/prisma ./apps/backend/prisma/
-
-# Install dependencies without flags
+# Install dependencies for the entire project
 RUN yarn install
 
-# Copy the rest of the application code
+# Copy the rest of the application code into the container
 COPY . .
 
 # Generate Prisma client in the backend workspace
@@ -24,5 +19,8 @@ RUN yarn workspace backend prisma generate
 # Build the backend app (TypeScript)
 RUN yarn workspace backend build
 
-# Run the backend app
+# Expose the port the app will run on
+EXPOSE 3000
+
+# Start the backend application
 CMD ["yarn", "workspace", "backend", "start"]
